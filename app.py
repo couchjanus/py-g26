@@ -47,3 +47,5 @@ while running:
                 print('Oops, float division by zero')
         else:
             print("I don't know what You want")
+            
+# ** // % 
