@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from payroll.productivity import(
     ManagerRole,
     SecretaryRole,
-    SalerRole,
+    SalesRole,
     FactoryRole
 )
 from payroll.payrollsystem import(
@@ -20,22 +20,23 @@ class Manager(Employee, ManagerRole, SalaryPolicy):
     def __init__(self, id, name, weekly_salary) -> None:
         SalaryPolicy.__init__(self, weekly_salary)
         super().__init__(id, name)
-    
-    
+
 class Secretary(Employee, SecretaryRole, SalaryPolicy):
-    def work(self, hours):
-        print(f'{self.name} expends {hours} hours doing office paperwork.')
-            
-class SalesPerson(CommissionEmployee):
-    def work(self, hours):
-        print(f'{self.name} expends {hours} hours on the phone.')
-            
-class FactoryWorker(HourlyEmployee):
-    def work(self, hours):
-        print(f'{self.name} manufactures gadgets for {hours} hours.')
-        
-class TemporarySecretary(Secretary, HourlyEmployee):
-    def __init__(self, id, name, hours_worked, hour_rate) -> None:
-        HourlyEmployee.__init__(id, name, hours_worked, hour_rate)
-    def calculate_payroll(self):
-        return HourlyEmployee.calculate_payroll(self)
+    def __init__(self, id, name, weekly_salary):
+        SalaryPolicy.__init__(self, weekly_salary)
+        super().__init__(id, name)
+
+class SalesPerson(Employee, SalesRole, CommissionPolicy):
+    def __init__(self, id, name, weekly_salary, commission):
+        CommissionPolicy.__init__(self, weekly_salary, commission)
+        super().__init__(id, name)
+
+class FactoryWorker(Employee, FactoryRole, HourlyPolicy):
+    def __init__(self, id, name, hours_worked, hour_rate):
+        HourlyPolicy.__init__(self, hours_worked, hour_rate)
+        super().__init__(id, name)
+
+class TemporarySecretary(Employee, SecretaryRole, HourlyPolicy):
+    def __init__(self, id, name, hours_worked, hour_rate):
+        HourlyPolicy.__init__(self, hours_worked, hour_rate)
+        super().__init__(id, name)
