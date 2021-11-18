@@ -1,5 +1,5 @@
 body{
-    background-color: red;
-    color: aliceblue;
-    font-size: 2em;
+    background-color: var(--bs-warning);
+    color: rgb(10, 104, 187);
+    font-size: 1.2em;
 }
